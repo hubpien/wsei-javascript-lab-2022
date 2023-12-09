@@ -9,7 +9,11 @@
  * Set(2) {size: 2, ewa, karol} 
  */
 
-function union(a1, a2){
+function union(a1, a2) {
+    const set1 = new Set(a1);
+    const set2 = new Set(a2);
+
+    return new Set([...set1].filter(x => set2.has(x)));
 }
 
 const a1 = [...Array(100_000).keys()];
