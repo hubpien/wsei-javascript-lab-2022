@@ -1,14 +1,10 @@
 const changeColorBtn = document.getElementById('color-btn');
 let color = '#FF5511'
 document.body.addEventListener('click', function (e){
-    if (e.target.tagName === "DIV" && !e.target.classList.contains("board")) {
-        e.target.style.backgroundColor = color;
-    }
+
 });
 changeColorBtn.addEventListener('click', function(e){
-    e.preventDefault();
-    color = document.getElementById("color").value;
-    changeColorBtn.style.backgroundColor = color;
+  //wpisz kod
 });
 
 /**

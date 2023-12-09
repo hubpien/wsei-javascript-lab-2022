@@ -6,8 +6,16 @@
  * console.log(frequences("abcdagcc"));
  * Map(5) {size: 5, a => 2, b => 1, c => 3, d => 1, g => 1}
  */
-function frequences(str){
-
+function frequences(str) {
+    const map = new Map();
+    for (const char of str) {
+        if (map.has(char)) {
+            map.set(char, map.get(char) + 1);
+        } else {
+            map.set(char, 1);
+        }
+    }
+    return map;
 }
 
 try{

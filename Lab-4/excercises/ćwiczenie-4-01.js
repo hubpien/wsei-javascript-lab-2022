@@ -24,10 +24,60 @@
  *  Dopasuj konstruktor do przykładowego wywołania w testach.
  */
 class TodoTask {
+    constructor(description, deadline) {
+        if (new Date(deadline) < new Date()) {
+            throw new Error('Deadline cannot be in the past.');
+        }
+        this.description = description;
+        this.deadline = new Date(deadline);
+        this.finished = null;
+        this.done = false;
+        this.created = new Date();
+    }
+
+    set description(newDescription) {
+        if (!this.done && (!this.finished || new Date() < this.deadline)) {
+            this._description = newDescription;
+        }
+    }
+
+    get description() {
+        return this._description;
+    }
+
+    set deadline(newDeadline) {
+        if (!this.done && new Date(newDeadline) > this.deadline) {
+            this._deadline = new Date(newDeadline);
+        }
+    }
+
+    get deadline() {
+        return this._deadline;
+    }
+
+    set done(status) {
+        if (!this.done && new Date() <= this.deadline) {
+            this._done = status;
+            if (status === true) {
+                this.finished = new Date();
+            }
+        }
+    }
+
+    get done() {
+        return this._done;
+    }
+
+    get finished() {
+        return this._finished;
+    }
+
+    set finished(finishDate) {
+        this._finished = finishDate;
+    }
 }
 
-
-//Uwaga! Testy działają tylko w dniu zajęć tj. 26.11.2022
+//Uwaga! Testy działają tylko w dniu zajęć tj. 26.11.2022 /////  :)
 const task = new TodoTask("Nauczyć się JavaScript'u", new Date(Date.parse("2023-01-30T00:00:00")));
 try {
     const now = new Date();

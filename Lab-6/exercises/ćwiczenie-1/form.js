@@ -15,3 +15,41 @@
  * funkcja obiektu zdarzenia anulująca normalny tryb obsługi zdarzenia to preventDefault(), ale nie blokuje propagacji
  * Informacje na temat walidacji fomrularzy w JS: https://developer.mozilla.org/en-US/docs/Learn/Forms/Form_validation
  */
+const form = document.querySelector('form');
+const startLocationSelect = document.getElementById('start-location');
+const endLocationSelect = document.getElementById('end-location');
+const startDateInput = document.getElementById('start-date');
+const endDateInput = document.getElementById('end-date');
+const errorSpans = document.querySelectorAll('.error');
+
+form.addEventListener('submit', event => {
+    let isValid = true;
+
+
+    if ((startLocationSelect.value === 'S2' && endLocationSelect.value === 'E4') || (startLocationSelect.value === 'S4' && endLocationSelect.value === 'E5')) {
+        errorSpans[0].textContent = 'Brak połączenia między tymi miastami';
+        isValid = false;
+    } else {
+        errorSpans[0].textContent = '';
+    }
+
+
+    if (new Date(startDateInput.value) < new Date()) {
+        errorSpans[1].textContent = 'Data rozpoczęcia pobytu nie może być wcześniejsza od bieżącej daty';
+        isValid = false;
+    } else {
+        errorSpans[1].textContent = '';
+    }
+
+
+    if (new Date(endDateInput.value) <= new Date(startDateInput.value)) {
+        errorSpans[2].textContent = 'Data zakończenia pobytu musi być późniejsza od daty rozpoczęcia';
+        isValid = false;
+    } else {
+        errorSpans[2].textContent = '';
+    }
+
+    if (!isValid) {
+        event.preventDefault();
+    }
+});
